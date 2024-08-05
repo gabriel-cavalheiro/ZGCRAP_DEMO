@@ -1,0 +1,25 @@
+@Metadata.layer: #CUSTOMER
+
+
+@UI: {
+      headerInfo: {
+        typeName: 'Status',
+        typeNamePlural: 'Status',
+        title: {type: #STANDARD,
+                label: 'Status',
+                value: 'Status'
+         }
+      }
+}
+
+annotate entity ZC_GCRAP_CERTIFSTPRODUCT with
+{
+  @UI.facet: [
+  { id: 'Status',
+  purpose: #STANDARD,
+  type: #IDENTIFICATION_REFERENCE}
+  ]
+  
+  @UI.hidden: true
+  StateUuid;
+}

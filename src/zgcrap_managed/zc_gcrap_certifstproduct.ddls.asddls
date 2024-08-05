@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Consumption - Certificados Status'
 @Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
 define view entity ZC_GCRAP_CERTIFSTPRODUCT
   as projection on ZI_GCRAP_CERTIFSTPRODUCT
 {

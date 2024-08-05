@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Consumption - Certificados'
 @Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
 define root view entity ZC_GCRAP_CERTIFPRODUCT
   as projection on ZI_GCRAP_CERTIFPRODUCT
 {
@@ -15,7 +16,8 @@ define root view entity ZC_GCRAP_CERTIFPRODUCT
       CertIso,
       CertTuev,
       LocalLastChangedAt,
+      Icon,
       /* Associations */
       _Prod,
-      _Status: redirected to composition child ZC_GCRAP_CERTIFSTPRODUCT
+      _Status : redirected to composition child ZC_GCRAP_CERTIFSTPRODUCT
 }

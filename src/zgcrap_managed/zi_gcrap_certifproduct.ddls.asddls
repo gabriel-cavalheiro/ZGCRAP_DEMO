@@ -10,12 +10,12 @@
 define root view entity ZI_GCRAP_CERTIFPRODUCT
   as select from ZI_GCRAP_CERTIF
   composition [1..*] of ZI_GCRAP_CERTIFSTPRODUCT as _Status
-  association [1..1] to ZI_GCRAP_PRODUCT              as _Prod   on  $projection.Matnr = _Prod.Matnr
-                                                                 and _Prod.Language    = $session.system_language
+  association [1..1] to ZI_GCRAP_PRODUCT         as _Prod on  $projection.Matnr = _Prod.Matnr
+                                                          and _Prod.Language    = $session.system_language
 {
   key CertUuid,
       Matnr,
-      _Prod.Description as Description,
+      _Prod.Description                             as Description,
       Version,
       CertStatus,
       CertCe,
@@ -25,6 +25,8 @@ define root view entity ZI_GCRAP_CERTIFPRODUCT
       CertTuev,
       @Semantics.systemDateTime.localInstanceLastChangedAt: true
       LocalLastChangedAt,
+      'sap-icon://accounting-document-verification' as Icon,
+
 
       _Prod,
       _Status
