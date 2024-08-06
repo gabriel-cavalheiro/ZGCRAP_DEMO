@@ -1,0 +1,57 @@
+managed
+implementation in class zbp_i_gcrap_certifproduct unique;
+strict ( 1 );
+
+define behavior for ZI_GCRAP_CERTIFPRODUCT alias Certificate
+persistent table zgcrap_certif
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  association _Status { create; }
+
+  field ( numbering : managed, readonly ) CertUUID;
+  field ( readonly ) Description;
+  field ( mandatory ) Matnr;
+
+  mapping for zgcrap_certif
+    {
+      Matnr              = matnr;
+      Version            = version;
+      Certce             = cert_ce;
+      CertGs             = cert_gs;
+      CertFcc            = cert_fcc;
+      CertIso            = cert_iso;
+      CertTuev           = cert_tuev;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}
+
+define behavior for ZI_GCRAP_CERTIFSTPRODUCT alias CertificateST
+persistent table zgcrap_certif_st
+lock dependent by _Certif
+authorization dependent by _Certif
+//etag master <field_name>
+{
+  delete;
+  field ( readonly ) CertUuid;
+  field ( numbering : managed, readonly ) StateUUID;
+
+  association _Certif;
+
+  mapping for zgcrap_certif_st
+    {
+      StateUuid          = state_uuid;
+      CertUuid           = cert_uuid;
+      Version            = version;
+      Status             = status;
+      StatusOld          = status_old;
+      LastChangedBy      = last_changed_by;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+}
