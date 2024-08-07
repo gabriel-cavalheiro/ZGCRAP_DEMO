@@ -1,5 +1,6 @@
 projection;
 strict ( 1 );
+use draft;
 
 define behavior for ZC_GCRAP_CERTIFPRODUCT alias Certificate
 {
@@ -7,7 +8,14 @@ define behavior for ZC_GCRAP_CERTIFPRODUCT alias Certificate
   use update;
   use delete;
 
-  use association _Status { create; }
+  use association _Status { create; with draft;}
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+  use action Resume;
+
 }
 
 define behavior for ZC_GCRAP_CERTIFSTPRODUCT alias CertificateST

@@ -1,10 +1,12 @@
 managed
 implementation in class zbp_i_gcrap_certifproduct unique;
 strict ( 1 );
+with draft;
 
 define behavior for ZI_GCRAP_CERTIFPRODUCT alias Certificate
 persistent table zgcrap_certif
-lock master
+draft table zbgcrap_certif
+lock master total etag LocalLastChangedAt
 authorization master ( instance )
 //etag master <field_name>
 {
@@ -12,14 +14,23 @@ authorization master ( instance )
   update;
   delete;
 
-  association _Status { create; }
+  association _Status { create; with draft; }
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  determination setInitialValues on modify {create;}
 
   field ( numbering : managed, readonly ) CertUUID;
-  field ( readonly ) Description;
+  field ( readonly ) Description, Version;
   field ( mandatory ) Matnr;
 
   mapping for zgcrap_certif
     {
+      CertUuid           = cert_uuid;
       Matnr              = matnr;
       Version            = version;
       Certce             = cert_ce;
@@ -33,6 +44,7 @@ authorization master ( instance )
 
 define behavior for ZI_GCRAP_CERTIFSTPRODUCT alias CertificateST
 persistent table zgcrap_certif_st
+draft table zbgcrap_certifst
 lock dependent by _Certif
 authorization dependent by _Certif
 //etag master <field_name>
